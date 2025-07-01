@@ -24,8 +24,8 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Gambar Utama</label>
-                <input type="file" name="image" class="form-control mb-3" id="imageInput" accept="image/*" required>
-                <img id="imagePreview" class="img-fluid-mt-2 rounded-2" width="200" style="display;none;">
+                <input type="file" name="image" class="form-control" id="imageInput" accept="image/*" required>
+                <img id="imagePreview" class="img-fluid-mt-2 mt-3 rounded-2 " width="200" style="display:none;">
             </div>
             <div class="mb-3">
                 <label class="form-label">Isi Cerita</label>
@@ -49,6 +49,12 @@
         document.getElementById('imageInput').addEventListener('change', function(e) {
             const [file] = this.files;
             if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Ukuran gambar tidak boleh lebih dari 2 MB.');
+                    this.value = '';
+                    document.getElementById('imagePreview').style.display = 'none';
+                    return;
+                }
                 const preview = document.getElementById('imagePreview');
                 preview.src = URL.createObjectURL(file);
                 preview.style.display = 'block';

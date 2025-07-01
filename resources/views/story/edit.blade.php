@@ -21,7 +21,7 @@
                     <img id="imagePreview" src="{{ asset('storage/' . $story->image) }}" class="img-fluid mt-2 rounded-2"
                         width="200">
                 @else
-                    <img id="imagePreview" class="img-fluid-mt-2 rounded-2" width="200" style="display;none;">
+                    <img id="imagePreview" class="img-fluid-mt-2 rounded-2" width="200" style="display:none;">
                 @endif
             </div>
             <div class="mb-3">
@@ -48,6 +48,12 @@
         document.getElementById('imageInput').addEventListener('change', function(e) {
             const [file] = this.files;
             if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Ukuran gambar tidak boleh lebih dari 2 MB.');
+                    this.value = '';
+                    document.getElementById('imagePreview').style.display = 'none';
+                    return;
+                }
                 const preview = document.getElementById('imagePreview');
                 preview.src = URL.createObjectURL(file);
                 preview.style.display = 'block';
