@@ -23,6 +23,11 @@
                         <li class="nav-item">
                             <a href="/create" class="nav-link fs-5">Tulis Cerita</a>
                         </li>
+                        @if (auth()->user()->is_admin)
+                            <li class="nav-item">
+                                <a href="/admin/dashboard" class="nav-link fs-5">Dashboard Admin</a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <form action="/logout" method="POST" class="d-inline">
                                 @csrf
