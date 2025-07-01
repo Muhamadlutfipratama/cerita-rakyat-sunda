@@ -24,7 +24,8 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Gambar Utama</label>
-                <input type="file" name="image" class="form-control" required>
+                <input type="file" name="image" class="form-control mb-3" id="imageInput" accept="image/*" required>
+                <img id="imagePreview" class="img-fluid-mt-2 rounded-2" width="200" style="display;none;">
             </div>
             <div class="mb-3">
                 <label class="form-label">Isi Cerita</label>
@@ -44,5 +45,14 @@
             .catch(error => {
                 console.error(error);
             });
+
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const [file] = this.files;
+            if (file) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            }
+        });
     </script>
 @endsection
