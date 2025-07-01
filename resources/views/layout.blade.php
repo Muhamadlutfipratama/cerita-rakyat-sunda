@@ -8,6 +8,19 @@
     <title>Cerita Rakyat Sunda</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .main-content {
+            margin-top: 3.5rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -49,7 +62,7 @@
         </div>
     </nav>
 
-    <main class="py-4">
+    <main class="py-4 main-content">
         @yield('content')
     </main>
 
