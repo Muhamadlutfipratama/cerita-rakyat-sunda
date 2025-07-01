@@ -12,6 +12,7 @@
 
         .story-content img {
             max-width: 75%;
+            max-height: 350px;
             height: auto;
             border-radius: 10px;
             display: block;
