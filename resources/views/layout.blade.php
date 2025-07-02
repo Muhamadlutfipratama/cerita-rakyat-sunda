@@ -9,14 +9,6 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .navbar {
-            position: fixed;
-            z-index: 100;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-
         .main-content {
             margin-top: 3.5rem;
         }
@@ -24,7 +16,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a href="/" class="navbar-brand fw-bold fs-4">Cerita Rakyat Sunda</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
