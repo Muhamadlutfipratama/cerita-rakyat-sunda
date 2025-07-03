@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [StoryController::class, 'index']);
 Route::get('/story/{id}', [StoryController::class, 'show']);
+Route::get('/pdf/{filename}', function ($filename) {
+    $path = storage_path('app/public/pdfs/' . $filename);
+    if (!file_exists($path)) abort(404);
+    return response()->file($path, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="' . $filename . '"'
+    ]);
+});
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);

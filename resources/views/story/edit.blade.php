@@ -28,6 +28,10 @@
                 <label class="form-label">Isi Cerita</label>
                 <textarea name="content" id="editor" class="form-control" rows="10">{{ old('content', $story->content ?? '') }}</textarea>
             </div>
+            <div class="mb-3">
+                <label class="mb-3">Upload PDF (opsional)</label>
+                <input type="file" name="pdf" class="form-control" accept="application/pdf">
+            </div>
             <button type="submit" class="btn btn-success">Update Cerita</button>
             <a href="{{ url('/story/' . $story->id) }}" class="btn btn-danger ms-2"
                 onclick="return confirm('Batal update cerita?');">Batal</a>
@@ -48,8 +52,8 @@
         document.getElementById('imageInput').addEventListener('change', function(e) {
             const [file] = this.files;
             if (file) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('Ukuran gambar tidak boleh lebih dari 2 MB.');
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Ukuran gambar tidak boleh lebih dari 5 MB.');
                     this.value = '';
                     document.getElementById('imagePreview').style.display = 'none';
                     return;

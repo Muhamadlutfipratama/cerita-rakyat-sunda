@@ -18,6 +18,33 @@
             display: block;
             margin: 1rem auto;
         }
+
+        .pdf-float-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            opacity: 0.85;
+            background: rgba(33, 37, 41, 0.7);
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .pdf-float-btn:hover {
+            background: rgba(33, 37, 41, 0.95);
+            color: #fff;
+        }
+
+        #prev-page {
+            left: 10px;
+        }
+
+        #next-page {
+            right: 10px;
+        }
     </style>
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
@@ -29,23 +56,114 @@
                         onsubmit="return confirm('Yakin ingin menghapus cerita ini?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm     btn-danger">Hapus Cerita</button>
+                        <button type="submit" class="btn btn-sm btn-danger">Hapus Cerita</button>
                     </form>
                 </div>
             @endif
         </div>
         <p class="text-muted">Ditulis oleh <strong>{{ $story->user->name }}</strong></p>
         @if ($story->image)
-            <img src="{{ asset('storage/' . $story->image) }}" alt="{{ $story->title }}" class="story-image mx-auto">
+            <div class="d-flex justify-content-center">
+                <img src="{{ asset('storage/' . $story->image) }}" alt="{{ $story->title }}"
+                    class="story-image mx-auto border border-dark rounded">
+            </div>
         @endif
-        <div class="story-content">{!! $story->content !!}</div>
+        <div class="story-content mb-4">{!! $story->content !!}</div>
+        @if ($story->pdf)
+            <div class="mb-4">
+                <div id="pdf-viewer"
+                    class="border rounded position-relative d-flex align-items-center justify-content-center"
+                    style="height:600px;">
+                    <!-- Floating Prev/Next -->
+                    <button id="prev-page" class="btn pdf-float-btn" style="left:10px;">&#8592;</button>
+                    <button id="next-page" class="btn pdf-float-btn" style="right:10px;">&#8594;</button>
+                    <!-- Canvas akan di-inject di sini -->
+                    <div id="pdf-canvas-container" class="w-100 d-flex align-items-center justify-content-center"></div>
+                    <!-- Page info -->
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x bg-white bg-opacity-75 px-3 py-1 rounded mb-2"
+                        style="font-size: 0.95rem;">
+                        Halaman <span id="page-num">1</span> / <span id="page-count">1</span>
+                    </div>
+                </div>
+                <a href="{{ asset('storage/' . $story->pdf) }}" target="_blank"
+                    class="btn btn-outline-primary mt-2">Download PDF</a>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+            <script>
+                const url = "{{ asset('storage/' . $story->pdf) }}";
+                const pdfjsLib = window['pdfjsLib'];
+                pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
 
-        {{-- Notifikasi Flash Message --}}
-        @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
+                let pdfDoc = null,
+                    pageNum = 1,
+                    pageRendering = false,
+                    pageNumPending = null;
+
+                const container = document.getElementById('pdf-canvas-container');
+                const pageNumSpan = document.getElementById('page-num');
+                const pageCountSpan = document.getElementById('page-count');
+                const prevBtn = document.getElementById('prev-page');
+                const nextBtn = document.getElementById('next-page');
+
+                function renderPage(num) {
+                    pageRendering = true;
+                    pdfDoc.getPage(num).then(function(page) {
+                        const viewport = page.getViewport({
+                            scale: 0.93
+                        });
+                        container.innerHTML = '';
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        container.appendChild(canvas);
+
+                        const renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        const renderTask = page.render(renderContext);
+
+                        renderTask.promise.then(function() {
+                            pageRendering = false;
+                            pageNumSpan.textContent = num;
+                            if (pageNumPending !== null) {
+                                renderPage(pageNumPending);
+                                pageNumPending = null;
+                            }
+                        });
+                    });
+                }
+
+                function queueRenderPage(num) {
+                    if (pageRendering) {
+                        pageNumPending = num;
+                    } else {
+                        renderPage(num);
+                    }
+                }
+
+                function onPrevPage() {
+                    if (pageNum <= 1) return;
+                    pageNum--;
+                    queueRenderPage(pageNum);
+                }
+
+                function onNextPage() {
+                    if (pageNum >= pdfDoc.numPages) return;
+                    pageNum++;
+                    queueRenderPage(pageNum);
+                }
+
+                prevBtn.addEventListener('click', onPrevPage);
+                nextBtn.addEventListener('click', onNextPage);
+
+                pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+                    pdfDoc = pdfDoc_;
+                    pageCountSpan.textContent = pdfDoc.numPages;
+                    renderPage(pageNum);
+                });
+            </script>
         @endif
 
         {{-- Komentar --}}
@@ -69,7 +187,7 @@
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul class="mb-0">
-                        @foreach ($errors->all as $error)
+                        @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>

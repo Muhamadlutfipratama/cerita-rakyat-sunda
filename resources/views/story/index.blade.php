@@ -62,6 +62,14 @@
             </div>
         </div>
 
+        {{-- Notifikasi Flash Message --}}
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
         <h2 class="mb-4">Daftar Cerita</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
             @forelse ($stories as $story)

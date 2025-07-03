@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Story extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'content', 'image', 'user_id'];
+    protected $fillable = ['title', 'content', 'image', 'user_id', 'pdf'];
     public function user()
     {
         return $this->belongsTo(User::class);

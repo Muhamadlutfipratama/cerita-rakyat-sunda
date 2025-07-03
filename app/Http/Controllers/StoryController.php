@@ -39,7 +39,8 @@ class StoryController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:5242',
+            'pdf' => 'nullable|mimes:pdf|max:10240'
         ]);
 
         $story = new Story();
@@ -49,6 +50,10 @@ class StoryController extends Controller
 
         if ($request->hasFile('image')) {
             $story->image = $request->file('image')->store('stories', 'public');
+        }
+
+        if ($request->hasFile('pdf')) {
+            $story->pdf = $request->file('pdf')->store('pdfs', 'public');
         }
 
         $story->save();
@@ -75,7 +80,8 @@ class StoryController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'image' => 'image|mimes:png,jpg,jpeg|max:2048'
+            'image' => 'image|mimes:png,jpg,jpeg|max:5242',
+            'pdf' => 'nullable|mimes:pdf|max:10240',
         ]);
 
         $story->title = $request->title;
@@ -86,6 +92,13 @@ class StoryController extends Controller
                 Storage::disk('public')->delete($story->image);
             }
             $story->image = $request->file('image')->store('stories', 'public');
+        }
+
+        if ($request->hasFile('pdf')) {
+            if ($story->pdf) {
+                Storage::disk('public')->delete($story->pdf);
+            }
+            $story->pdf = $request->file('pdf')->store('pdfs', 'public');
         }
 
         $story->save();
