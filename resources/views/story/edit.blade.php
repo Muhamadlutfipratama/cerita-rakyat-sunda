@@ -16,7 +16,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Ganti Gambar</label>
-                <input type="file" name="image" class="form-control mb-3" id="imageInput" accept="image/*" required>
+                <input type="file" name="image" class="form-control mb-3" id="imageInput" accept="image/*">
                 @if ($story->image)
                     <img id="imagePreview" src="{{ asset('storage/' . $story->image) }}" class="img-fluid mt-2 rounded-2"
                         width="200">

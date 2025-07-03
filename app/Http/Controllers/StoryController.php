@@ -75,7 +75,7 @@ class StoryController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+            'image' => 'image|mimes:png,jpg,jpeg|max:2048'
         ]);
 
         $story->title = $request->title;
