@@ -2,7 +2,7 @@
 @section('content')
     <style>
         .ck-editor__editable {
-            min-height: 250px;
+            min-height: 150px;
         }
     </style>
     <div class="container">
