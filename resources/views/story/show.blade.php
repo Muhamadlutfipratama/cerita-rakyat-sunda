@@ -70,6 +70,10 @@
         @endif
         <div class="story-content mb-4">{!! $story->content !!}</div>
         @if ($story->pdf)
+            <div class="alert alert-warning mb-3" id="pdf-warning" style="display:none;">
+                <strong>Perhatian:</strong> Jika PDF tidak tampil, silakan <b>matikan AdBlock</b> atau ekstensi download
+                manager (seperti IDM) dan exit IDM juga di bagian system tray yang berada dalam ikon panah pada menu, setelah itu refresh halaman ini agar cerita dapat dibaca dengan lancar.
+            </div>
             <div class="mb-4">
                 <div id="pdf-viewer"
                     class="border rounded position-relative d-flex align-items-center justify-content-center"
@@ -85,12 +89,12 @@
                         Halaman <span id="page-num">1</span> / <span id="page-count">1</span>
                     </div>
                 </div>
-                <a href="{{ asset('storage/' . $story->pdf) }}" target="_blank"
+                <a href="{{ url('/pdf/' . basename($story->pdf)) }}" target="_blank"
                     class="btn btn-outline-primary mt-2">Download PDF</a>
             </div>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
             <script>
-                const url = "{{ asset('storage/' . $story->pdf) }}";
+                const url = "{{ url('/pdf/' . basename($story->pdf)) }}";
                 const pdfjsLib = window['pdfjsLib'];
                 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
 
@@ -163,6 +167,14 @@
                     pageCountSpan.textContent = pdfDoc.numPages;
                     renderPage(pageNum);
                 });
+
+                // Tampilkan alert jika PDF gagal dimuat (canvas tidak muncul)
+                setTimeout(function() {
+                    var canvas = document.querySelector('#pdf-canvas-container canvas');
+                    if (!canvas) {
+                        document.getElementById('pdf-warning').style.display = 'block';
+                    }
+                }, 3000);
             </script>
         @endif
 
