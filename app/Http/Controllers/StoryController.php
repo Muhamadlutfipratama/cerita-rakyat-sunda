@@ -77,7 +77,7 @@ class StoryController extends Controller
             return redirect('/')->with('success', 'Cerita berhasil ditambahkan');
         } catch (\Exception $e) {
             Log::error('PDF Upload Error: ' . $e->getMessage());
-            return back()->with('error', 'Gagal upload file: ' . $e->getMessage());
+            return back()->with('error', 'Gagal upload file: ' . $e->getMessage())->withInput();
         }
     }
 
