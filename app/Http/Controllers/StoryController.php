@@ -40,7 +40,7 @@ class StoryController extends Controller
             'title' => 'required',
             'content' => 'required',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:5242',
-            'pdf' => 'nullable|mimes:pdf|max:5242'
+            'pdf' => 'nullable|mimes:pdf|max:10240'
         ]);
 
         $story = new Story();
@@ -81,7 +81,7 @@ class StoryController extends Controller
             'title' => 'required',
             'content' => 'required',
             'image' => 'image|mimes:png,jpg,jpeg|max:5242',
-            'pdf' => 'nullable|mimes:pdf|max:5242',
+            'pdf' => 'nullable|mimes:pdf|max:10240',
         ]);
 
         $story->title = $request->title;
