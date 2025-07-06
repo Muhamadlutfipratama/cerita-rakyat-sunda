@@ -72,11 +72,12 @@
         @if ($story->pdf)
             <div class="alert alert-warning mb-3" id="pdf-warning" style="display:none;">
                 <strong>Perhatian:</strong> Jika PDF tidak tampil, silakan <b>matikan AdBlock</b> atau ekstensi download
-                manager (seperti IDM) dan exit IDM juga di bagian system tray yang berada dalam ikon panah pada menu, setelah itu refresh halaman ini agar cerita dapat dibaca dengan lancar.
+                manager (seperti IDM) dan exit IDM juga di bagian system tray yang berada dalam ikon panah pada menu,
+                setelah itu refresh halaman ini agar cerita dapat dibaca dengan lancar.
             </div>
             <div class="mb-4">
                 <div id="pdf-viewer"
-                    class="border rounded position-relative d-flex align-items-center justify-content-center"
+                    class="border border-2 border-dark rounded position-relative d-flex align-items-center justify-content-center"
                     style="height:800px;">
                     <!-- Floating Prev/Next -->
                     <button id="prev-page" class="btn pdf-float-btn" style="left:10px;">&#8592;</button>
