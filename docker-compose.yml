@@ -1,19 +1,19 @@
 version: '3.8'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: laravel-app
-    container_name: laravel-app
-    restart: unless-stopped
-    ports:
-      - "9000:9000"
-    volumes:
-      - .:/var/www
-    depends_on:
-      - mysql_cerita
+#   app:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     image: laravel-app
+#     container_name: laravel-app
+#     restart: unless-stopped
+#     ports:
+#       - "9000:9000"
+#     volumes:
+#       - .:/var/www
+#     depends_on:
+#       - mysql_cerita
 
   nginx:
     image: nginx:alpine
