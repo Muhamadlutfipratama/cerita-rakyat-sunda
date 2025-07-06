@@ -77,7 +77,7 @@
             <div class="mb-4">
                 <div id="pdf-viewer"
                     class="border rounded position-relative d-flex align-items-center justify-content-center"
-                    style="height:600px;">
+                    style="height:800px;">
                     <!-- Floating Prev/Next -->
                     <button id="prev-page" class="btn pdf-float-btn" style="left:10px;">&#8592;</button>
                     <button id="next-page" class="btn pdf-float-btn" style="right:10px;">&#8594;</button>
