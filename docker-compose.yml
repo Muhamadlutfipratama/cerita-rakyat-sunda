@@ -24,8 +24,6 @@ services:
     volumes:
       - .:/var/www
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - app
 
   mysql_cerita:
     image: mysql:8.0
