@@ -92,7 +92,7 @@
         </div>
 
         <div class="mt-4 d-flex justify-content-center">
-            {{ $stories->appends(['search' => request('search')])->links() }}
+            {{ $stories->appends(['search' => request('search')])->links('pagination::bootstrap-5') }}
         </div>
     </div>
 @endsection
