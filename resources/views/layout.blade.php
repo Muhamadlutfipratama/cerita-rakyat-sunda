@@ -51,7 +51,7 @@
                     @endauth
                     <li class="nav-item align-self-center">
                         <a href="https://wa.me/6285283189510?text=Halo%20Kak%2C%20saya%20ingin%20bertanya%20tentang%20website%20Cerita%20Rakyat%20Sunda%20atau%20fitur%20lainnya."
-                            class="btn btn-secondary ms-2" target="_blank" rel="noopener">
+                            class="btn btn-primary ms-2" target="_blank" rel="noopener">
                             <i class="bi bi-whatsapp"></i> Contact Me
                         </a>
                     </li>
@@ -69,7 +69,7 @@
             &copy; 2025 M. Lutfi Pratama. All Rights Reserved.
             <br>
             <a href="https://wa.me/6285283189510?text=Halo%20Kak%2C%20saya%20ingin%20bertanya%20tentang%20website%20Cerita%20Rakyat%20Sunda%20atau%20fitur%20lainnya."
-                class="btn btn-secondary btn-sm mt-2" target="_blank" rel="noopener">
+                class="btn btn-primary btn-sm mt-2" target="_blank" rel="noopener">
                 <i class="bi bi-whatsapp"></i> Contact Me
             </a>
         </div>
