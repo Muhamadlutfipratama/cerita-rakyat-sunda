@@ -8,6 +8,7 @@
     <title>Cerita Rakyat Sunda</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         .main-content {
             margin-top: 3.5rem;
@@ -49,9 +50,12 @@
                         </li>
                         </li>
                     @endauth
+                    <li class="nav-item">
+                        <a class="nav-link fs-5" href="{{ route('about') }}">About</a>
+                    </li>
                     <li class="nav-item align-self-center">
                         <a href="https://wa.me/6285283189510?text=Halo%20Kak%2C%20saya%20ingin%20bertanya%20tentang%20website%20Cerita%20Rakyat%20Sunda%20atau%20fitur%20lainnya."
-                            class="btn btn-primary ms-2" target="_blank" rel="noopener">
+                            class="btn btn-success ms-2" target="_blank" rel="noopener">
                             <i class="bi bi-whatsapp"></i> Contact Me
                         </a>
                     </li>
@@ -69,7 +73,7 @@
             &copy; 2025 M. Lutfi Pratama. All Rights Reserved.
             <br>
             <a href="https://wa.me/6285283189510?text=Halo%20Kak%2C%20saya%20ingin%20bertanya%20tentang%20website%20Cerita%20Rakyat%20Sunda%20atau%20fitur%20lainnya."
-                class="btn btn-primary btn-sm mt-2" target="_blank" rel="noopener">
+                class="btn btn-success btn-sm mt-2" target="_blank" rel="noopener">
                 <i class="bi bi-whatsapp"></i> Contact Me
             </a>
         </div>

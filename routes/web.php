@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [StoryController::class, 'index']);
 Route::get('/story/{id}', [StoryController::class, 'show']);
+Route::view('/about', 'about')->name('about');
 Route::get('/pdf/{filename}', function ($filename) {
     $path = storage_path('app/public/pdfs/' . $filename);
     if (!file_exists($path)) abort(404);
