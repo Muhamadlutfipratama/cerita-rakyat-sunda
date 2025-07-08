@@ -51,6 +51,9 @@
                         </li>
                     @endauth
                     <li class="nav-item">
+                        <a class="nav-link fs-5" href="{{ route('quiz.index') }}">Quiz</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link fs-5" href="{{ route('about') }}">About</a>
                     </li>
                     <li class="nav-item align-self-center">

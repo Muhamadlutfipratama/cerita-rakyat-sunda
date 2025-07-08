@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [StoryController::class, 'index']);
 Route::get('/story/{id}', [StoryController::class, 'show']);
 Route::view('/about', 'about')->name('about');
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+Route::get('/quiz/{quiz}', [QuizController::class, 'show'])->name('quiz.show');
 Route::get('/pdf/{filename}', function ($filename) {
     $path = storage_path('app/public/pdfs/' . $filename);
     if (!file_exists($path)) abort(404);
