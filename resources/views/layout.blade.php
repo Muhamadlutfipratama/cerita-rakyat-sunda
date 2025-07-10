@@ -16,7 +16,7 @@
     </style>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="z-index: 100;">
         <div class="container">
             <a href="/" class="navbar-brand fw-bold fs-4">Cerita Rakyat Sunda</a>
@@ -67,12 +67,12 @@
         </div>
     </nav>
 
-    <main class="py-4 main-content">
+    <main class="py-4 main-content flex-grow-1">
         @yield('content')
     </main>
 
     <footer class="px-5 py-4 mt-5 border-top bg-dark text-white" style="font-size: 0.95rem;">
-        <div class="w-100 px-4 d-flex justify-content-between align-items-center">
+        <div class="container d-flex justify-content-between align-items-center">
             &copy; 2025 M. Lutfi Pratama. All Rights Reserved.
             <br>
             <a href="https://wa.me/6285283189510?text=Halo%20Kak%2C%20saya%20ingin%20bertanya%20tentang%20website%20Cerita%20Rakyat%20Sunda%20atau%20fitur%20lainnya."
