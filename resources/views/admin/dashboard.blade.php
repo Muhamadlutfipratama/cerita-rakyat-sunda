@@ -70,6 +70,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $quiz->links('pagination::bootstrap-5') }}
 
         <hr>
         <h4>Komentar Terbaru</h4>
@@ -82,6 +83,6 @@
                 </li>
             @endforeach
         </ul>
-        {{ $comments->links() }}
+        {{ $comments->links('pagination::bootstrap-5') }}
     </div>
 @endsection
