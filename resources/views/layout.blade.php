@@ -35,6 +35,12 @@
                             </li>
                         @endif
                         <li class="nav-item">
+                            <a class="nav-link fs-5" href="{{ route('quiz.index') }}">Quiz</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" href="{{ route('about') }}">About</a>
+                        </li>
+                        <li class="nav-item">
                             <form action="/logout" method="POST" class="d-inline">
                                 @csrf
                                 <button class="btn btn-link nav-link fs-5" type="submit">Logout</button>
@@ -48,14 +54,14 @@
                         <li class="nav-item">
                             <a class="nav-link fs-5" href="/register">Daftar</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" href="{{ route('quiz.index') }}">Quiz</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" href="{{ route('about') }}">About</a>
+                        </li>
                         </li>
                     @endauth
-                    <li class="nav-item">
-                        <a class="nav-link fs-5" href="{{ route('quiz.index') }}">Quiz</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-5" href="{{ route('about') }}">About</a>
-                    </li>
                     <li class="nav-item align-self-center">
                         <a href="https://wa.me/6285283189510?text=Halo%20Kak%2C%20saya%20ingin%20bertanya%20tentang%20website%20Cerita%20Rakyat%20Sunda%20atau%20fitur%20lainnya."
                             class="btn btn-success ms-2" target="_blank" rel="noopener">

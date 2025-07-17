@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\StoryController;
+use App\Models\Comment;
+use App\Models\Story;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +15,7 @@ Route::get('/story/{id}', [StoryController::class, 'show']);
 Route::view('/about', 'about')->name('about');
 Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
 Route::get('/quiz/{quiz}', [QuizController::class, 'show'])->name('quiz.show');
+Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submit'])->name('quiz.submit');
 Route::get('/pdf/{filename}', function ($filename) {
     $path = storage_path('app/public/pdfs/' . $filename);
     if (!file_exists($path)) abort(404);
@@ -49,13 +52,16 @@ Route::middleware('auth')->group(function () {
         }
         return response()->json(['uploaded' => 0]);
     });
+});
+
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+    Route::post('/admin/quiz', [QuizController::class, 'store'])->name('quiz.store');
+    Route::delete('/admin/quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.delete');
 
     Route::get('/admin/dashboard', function () {
-        abort_unless(Auth::user() && Auth::user()->is_admin, 403);
-
-        $stories = \App\Models\Story::with('user')->latest()->paginate(10);
-        $comments = \App\Models\Comment::with('user', 'story')->latest()->paginate(10);
-
+        $stories = Story::with('user')->latest()->paginate(10);
+        $comments = Comment::with('user', 'story')->latest()->paginate(10);
         return view('admin.dashboard', compact('stories', 'comments'));
     });
 });

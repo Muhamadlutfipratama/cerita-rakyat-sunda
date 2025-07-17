@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-4">
         <h2 class="mb-4">{{ $quiz->title }}</h2>
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('quiz.submit', $quiz) }}">
             @csrf
             @foreach ($quiz->questions as $i => $question)
                 <div class="mb-3">
