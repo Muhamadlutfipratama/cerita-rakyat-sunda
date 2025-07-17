@@ -40,7 +40,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $stories->links() }}
+        {{ $stories->links('pagination::bootstrap-5') }}
 
         <hr>
         <h4>Manajemen Quiz</h4>
