@@ -1,25 +1,44 @@
-// filepath: resources/views/quiz/show.blade.php
 @extends('layout')
 @section('content')
-    <div class="container mt-4">
-        <h2 class="mb-4">{{ $quiz->title }}</h2>
+    <div class="container mt-5">
+        <div class="mb-4 text-center">
+            <h2 class="fw-bold">{{ $quiz->title }}</h2>
+            <p class="text-muted">{{ $quiz->description }}</p>
+        </div>
+
         <form method="POST" action="{{ route('quiz.submit', $quiz) }}">
             @csrf
-            @foreach ($quiz->questions as $i => $question)
-                <div class="mb-3">
-                    <strong>{{ $i + 1 }}. {{ $question->question }}</strong>
-                    @foreach ($question->choices as $choice)
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="answers[{{ $question->id }}]"
-                                value="{{ $choice->id }}" id="choice{{ $choice->id }}">
-                            <label class="form-check-label" for="choice{{ $choice->id }}">
-                                {{ $choice->choice }}
-                            </label>
-                        </div>
-                    @endforeach
+
+            @forelse ($quiz->questions as $i => $question)
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <strong>Soal {{ $i + 1 }}</strong>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-3 fw-semibold">{{ $question->question }}</p>
+
+                        @foreach ($question->choices as $choice)
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="answers[{{ $question->id }}]"
+                                    value="{{ $choice->id }}" id="choice{{ $choice->id }}">
+                                <label class="form-check-label" for="choice{{ $choice->id }}">
+                                    {{ $choice->choice }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            @endforeach
-            <button type="submit" class="btn btn-success">Kirim Jawaban</button>
+            @empty
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-circle-fill"></i> Belum ada soal untuk quiz ini.
+                </div>
+            @endforelse
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-lg btn-success px-5 mt-3">
+                    <i class="bi bi-send-check-fill"></i> Kirim Jawaban
+                </button>
+            </div>
         </form>
     </div>
 @endsection
