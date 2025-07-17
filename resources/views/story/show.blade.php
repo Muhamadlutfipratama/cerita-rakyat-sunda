@@ -6,74 +6,76 @@
             max-height: 350px;
             object-fit: cover;
             border-radius: 12px;
-            display: block;
             margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .story-content img {
-            max-width: 75%;
-            max-height: 350px;
-            height: auto;
-            border-radius: 10px;
-            display: block;
-            margin: 1rem auto;
+        .story-meta {
+            font-size: 0.95rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
         }
 
-        .pdf-float-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            opacity: 0.85;
-            background: rgba(33, 37, 41, 0.7);
-            color: #fff;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 50%;
-            transition: background 0.2s;
+        .comment-card {
+            border-left: 4px solid #dee2e6;
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 0.4rem;
+            margin-bottom: 0.5rem;
         }
 
-        .pdf-float-btn:hover {
-            background: rgba(33, 37, 41, 0.95);
-            color: #fff;
+        .comment-meta {
+            font-weight: 600;
+            margin-right: 5px;
         }
 
-        #prev-page {
-            left: 10px;
+        .comment-form {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
         }
 
-        #next-page {
-            right: 10px;
+        .comment-form textarea {
+            resize: vertical;
+        }
+
+        .pdf-alert {
+            font-size: 0.92rem;
+        }
+
+        .edit-controls .btn {
+            margin-left: 5px;
         }
     </style>
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="mb-3">{{ $story->title }}</h2>
+        <div class="d-flex justify-content-between align-items-start mb-2">
+            <h2 class="fw-bold">{{ $story->title }}</h2>
             @if ($canEdit)
-                <div class="mb-3">
-                    <a href="/story/{{ $story->id }}/edit" class="btn btn-sm btn-secondary">Edit Cerita</a>
+                <div class="edit-controls">
+                    <a href="/story/{{ $story->id }}/edit" class="btn btn-sm btn-secondary">Edit</a>
                     <form action="/story/{{ $story->id }}" method="POST" class="d-inline"
                         onsubmit="return confirm('Yakin ingin menghapus cerita ini?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">Hapus Cerita</button>
+                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                     </form>
                 </div>
             @endif
         </div>
-        <p class="text-muted">Ditulis oleh <strong>{{ $story->user->name }}</strong></p>
+        <p class="story-meta">Ditulis oleh <strong>{{ $story->user->name }}</strong></p>
         @if ($story->image)
-            <div class="d-flex justify-content-center">
-                <img src="{{ asset('storage/' . $story->image) }}" alt="{{ $story->title }}"
-                    class="story-image mx-auto border border-dark rounded">
+            <div class="text-center mb-4">
+                <img src="{{ asset('storage/' . $story->image) }}" alt="{{ $story->title }}" class="story-image">
             </div>
         @endif
         <div class="story-content mb-4">{!! $story->content !!}</div>
         @if ($story->pdf)
-            <div class="alert alert-warning mb-3" id="pdf-warning" style="display:none;">
-                <strong>Perhatian:</strong> Jika PDF tidak tampil, silakan <b>matikan AdBlock</b> atau ekstensi download
-                manager (seperti IDM) dan exit IDM juga di bagian system tray yang berada dalam ikon panah pada menu,
-                setelah itu refresh halaman ini agar cerita dapat dibaca dengan lancar.
+            <div class="alert alert-warning pdf-alert d-none" id="pdf-warning">
+                <strong>Perhatian:</strong> Jika PDF tidak tampil, matikan <b>AdBlock</b> atau <b>IDM</b> di system tray,
+                lalu refresh halaman ini.
             </div>
             <div class="mb-4">
                 <div id="pdf-viewer"
@@ -181,20 +183,25 @@
 
         {{-- Komentar --}}
         <hr>
-        <h4>Komentar</h4>
-        @foreach ($story->comments as $comment)
-            <div class="mb-2">
-                <strong>{{ $comment->user->name }}</strong>:
-                {{ $comment->comment }}
-                @if (auth()->check() && (auth()->id() == $comment->user_id || auth()->user()->is_admin))
-                    <form action="/comment/{{ $comment->id }}" method="POST" class="d-inline ms-2">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-sm btn-danger" onclick="return confirm('Hapus komentar ini?')">Hapus</button>
-                    </form>
-                @endif
-            </div>
-        @endforeach
+        <h4 class="mt-5 mb-3">Komentar</h4>
+        @if ($story->comments->count())
+            @foreach ($story->comments as $comment)
+                <div class="comment-card">
+                    <span class="comment-meta">{{ $comment->user->name }}</span>:
+                    {{ $comment->comment }}
+                    @if (auth()->check() && (auth()->id() == $comment->user_id || auth()->user()->is_admin))
+                        <form action="/comment/{{ $comment->id }}" method="POST" class="d-inline ms-2">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-outline-danger"
+                                onclick="return confirm('Hapus komentar ini?')">Hapus</button>
+                        </form>
+                    @endif
+                </div>
+            @endforeach
+        @else
+            <div class="text-center text-muted">Belum ada komentar.</div>
+        @endif
 
         @auth
             @if ($errors->any())
@@ -206,13 +213,14 @@
                     </ul>
                 </div>
             @endif
-            <form method="POST" action="/comment">
+
+            <form method="POST" action="/comment" class="comment-form">
                 @csrf
                 <input type="hidden" name="story_id" value="{{ $story->id }}">
                 <div class="mb-3">
-                    <textarea name="comment" class="form-control" placeholder="Tulis komentar..." required></textarea>
+                    <textarea name="comment" class="form-control" placeholder="Tulis komentar..." rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-secondary">Kirim Komentar</button>
+                <button type="submit" class="btn btn-dark">Kirim Komentar</button>
             </form>
         @else
             <p><a href="/login">Login</a> untuk menulis komentar.</p>
