@@ -4,8 +4,8 @@
     <div class="card shadow-lg border-0">
         <div class="card-body p-4">
             <div class="text-center mb-4">
-                <img src="https://ui-avatars.com/api/?name=M.+Lutfi+Pratama&background=0D8ABC&color=fff&size=100"
-                    alt="M. Lutfi Pratama" class="rounded-circle mb-2 shadow" width="80" height="80">
+                <img src="{{ asset('profile.jpg') }}"
+                    alt="M. Lutfi Pratama" class="rounded-circle mb-2 shadow object-fit-cover" width="80" height="80">
                 <h3 class="fw-bold mb-0">M. Lutfi Pratama</h3>
                 <span class="text-muted">Web Developer</span>
             </div>
