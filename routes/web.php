@@ -63,7 +63,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         $stories = Story::with('user')->latest()->paginate(10);
         $comments = Comment::with('user', 'story')->latest()->paginate(10);
-        $quizzes = Quiz::with('user', 'quiz')->latest()->paginate(10);
+        $quizzes = Quiz::with('user')->latest()->paginate(10);
         return view('admin.dashboard', compact('stories', 'comments', 'quizzes'));
     });
 });
