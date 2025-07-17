@@ -17,7 +17,7 @@
             @empty
                 <div class="col-12">
                     <div class="alert alert-info text-center">
-                        Belum ada kuis tersedia.
+                        Belum ada quiz tersedia.
                     </div>
                 </div>
             @endforelse
