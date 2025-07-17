@@ -54,7 +54,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (\App\Models\Quiz::all() as $quiz)
+                @foreach ($quizzes as $quiz)
                     <tr>
                         <td>{{ $quiz->title }}</td>
                         <td>{{ $quiz->description }}</td>
@@ -70,7 +70,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $quiz->links('pagination::bootstrap-5') }}
+        {{ $quizzes->links('pagination::bootstrap-5') }}
 
         <hr>
         <h4>Komentar Terbaru</h4>

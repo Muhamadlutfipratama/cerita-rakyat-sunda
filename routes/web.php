@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\StoryController;
 use App\Models\Comment;
+use App\Models\Quiz;
 use App\Models\Story;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         $stories = Story::with('user')->latest()->paginate(10);
         $comments = Comment::with('user', 'story')->latest()->paginate(10);
-        return view('admin.dashboard', compact('stories', 'comments'));
+        $quizzes = Quiz::with('user', 'quiz')->latest()->paginate(10);
+        return view('admin.dashboard', compact('stories', 'comments', 'quizzes'));
     });
 });
