@@ -18,22 +18,27 @@
 
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="z-index: 100;">
-        <div class="container">
-            <a href="/" class="navbar-brand fw-bold fs-4">Cerita Rakyat Sunda</a>
+        <div class="container d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                <a href="/" class="navbar-brand fw-bold fs-4 me-3">Cerita Rakyat Sunda</a>
+
+                @auth
+                    @if (auth()->user()->is_admin)
+                        <a href="/admin/dashboard" class="btn btn-outline-light btn-sm align-self-center align-self-center">Dashboard Admin</a>
+                    @endif
+                @endauth
+            </div>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
                     @auth
                         <li class="nav-item">
                             <a href="/create" class="nav-link fs-5">Tulis Cerita</a>
                         </li>
-                        @if (auth()->user()->is_admin)
-                            <li class="nav-item">
-                                <a href="/admin/dashboard" class="nav-link fs-5">Dashboard Admin</a>
-                            </li>
-                        @endif
                         <li class="nav-item">
                             <a class="nav-link fs-5" href="{{ route('quiz.index') }}">Quiz</a>
                         </li>
@@ -47,7 +52,6 @@
                             </form>
                         </li>
                     @else
-                        <li>
                         <li class="nav-item">
                             <a class="nav-link fs-5" href="/login">Login</a>
                         </li>
@@ -60,7 +64,6 @@
                         <li class="nav-item">
                             <a class="nav-link fs-5" href="{{ route('about') }}">About</a>
                         </li>
-                        </li>
                     @endauth
                     <li class="nav-item align-self-center">
                         <a href="https://wa.me/6285283189510?text=Halo%20Kak%2C%20saya%20ingin%20bertanya%20tentang%20website%20Cerita%20Rakyat%20Sunda%20atau%20fitur%20lainnya."
@@ -72,6 +75,7 @@
             </div>
         </div>
     </nav>
+
 
     <main class="py-4 main-content flex-grow-1">
         @yield('content')
