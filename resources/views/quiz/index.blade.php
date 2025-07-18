@@ -10,7 +10,7 @@
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title fw-bold text-primary">{{ $quiz->title }}</h5>
                             <p class="card-text flex-grow-1">{{ $quiz->description }}</p>
-                            <a href="{{ route('quiz.show', $quiz) }}" class="btn btn-outline-primary mt-3">
+                            <a href="{{ route('quiz.show', $quiz) }}" class="btn btn-primary mt-3">
                                 <i class="bi bi-play-circle-fill"></i> Mulai Quiz
                             </a>
                         </div>
