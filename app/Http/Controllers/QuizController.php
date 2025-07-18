@@ -65,7 +65,7 @@ class QuizController extends Controller
                 ]);
             }
         }
-        return redirect('admin.dashboard')->with('success', 'Quiz berhasil ditambahkan');
+        return redirect('admin/dashboard')->with('success', 'Quiz berhasil ditambahkan');
     }
 
     public function destroy($id)
@@ -76,6 +76,6 @@ class QuizController extends Controller
         }
 
         $quiz->delete();
-        return redirect('admin.dashboard')->with('success', 'Quiz berhasil dihapus.');
+        return redirect('admin/dashboard')->with('success', 'Quiz berhasil dihapus.');
     }
 }
