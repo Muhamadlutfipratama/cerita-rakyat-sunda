@@ -98,7 +98,7 @@
                     <!-- Canvas akan di-inject di sini -->
                     <div id="pdf-canvas-container" class="w-100 d-flex align-items-center justify-content-center"></div>
                     <!-- Page info -->
-                    <div class="position-absolute bottom-0 start-50 translate-middle-x bg-white bg-opacity-75 px-3 py-1 rounded mb-2 border border-1"
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x bg-white bg-opacity-75 px-3 py-1 rounded mb-2 border border-2"
                         style="font-size: 0.95rem;">
                         Halaman <span id="page-num">1</span> / <span id="page-count">1</span>
                     </div>
