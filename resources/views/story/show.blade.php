@@ -91,14 +91,14 @@
                     class="border border-2 border-dark rounded position-relative d-flex align-items-center justify-content-center"
                     style="height:800px;">
                     <!-- Floating Prev/Next -->
-                    <button id="prev-page" class="btn btn pdf-float-btn position-absolute top-50 translate-middle-y"
+                    <button id="prev-page" class="btn btn-outline-dark position-absolute top-50 translate-middle-y"
                         style="left: 20px; z-index: 10;">←</button>
-                    <button id="next-page" class="btn btn pdf-float-btn position-absolute top-50 translate-middle-y"
+                    <button id="next-page" class="btn btn-outline-dark position-absolute top-50 translate-middle-y"
                         style="right: 20px; z-index: 10;">→</button>
                     <!-- Canvas akan di-inject di sini -->
                     <div id="pdf-canvas-container" class="w-100 d-flex align-items-center justify-content-center"></div>
                     <!-- Page info -->
-                    <div class="position-absolute bottom-0 start-50 translate-middle-x bg-white bg-opacity-75 px-3 py-1 rounded mb-2"
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x bg-white bg-opacity-75 px-3 py-1 rounded mb-2 border border-1"
                         style="font-size: 0.95rem;">
                         Halaman <span id="page-num">1</span> / <span id="page-count">1</span>
                     </div>
