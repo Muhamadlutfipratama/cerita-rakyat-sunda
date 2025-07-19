@@ -11,6 +11,15 @@
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .story-content img {
+            max-width: 75%;
+            max-height: 350px;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+            margin: 1rem auto;
+        }
+
         .story-meta {
             font-size: 0.95rem;
             color: #6c757d;
