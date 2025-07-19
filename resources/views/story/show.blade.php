@@ -34,6 +34,15 @@
             margin-bottom: 0.5rem;
         }
 
+
+        #prev-page {
+            left: 10px;
+        }
+
+        #next-page {
+            right: 10px;
+        }
+
         .comment-meta {
             font-weight: 600;
             margin-right: 5px;
@@ -92,7 +101,7 @@
                     style="height:800px;">
                     <!-- Floating Prev/Next -->
                     <button id="prev-page" class="btn pdf-float-btn" style="left:10px;">&#8592;</button>
-                    <button id="next-page" class="btn pdf-float-btn" style="right:-10px;">&#8594;</button>
+                    <button id="next-page" class="btn pdf-float-btn" style="right:10px;">&#8594;</button>
                     <!-- Canvas akan di-inject di sini -->
                     <div id="pdf-canvas-container" class="w-100 d-flex align-items-center justify-content-center"></div>
                     <!-- Page info -->
