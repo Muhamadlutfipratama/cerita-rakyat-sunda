@@ -30,7 +30,7 @@ services:
 
   mysql_cerita:
     image: mysql:8.0
-    container_name: laravel-mysql-cerita
+    container_name: mysql-container
     restart: unless-stopped
     ports:
       - "3306:3306"
