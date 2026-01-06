@@ -28,7 +28,7 @@ services:
       - app
 
 
-  mysql_cerita:
+  mysql:
     image: mysql:8.0
     container_name: mysql-container
     restart: unless-stopped
