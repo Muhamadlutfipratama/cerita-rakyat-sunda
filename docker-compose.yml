@@ -13,7 +13,7 @@ services:
     volumes:
       - .:/var/www
     depends_on:
-      - mysql_cerita
+      - mysql
 
   nginx:
     image: nginx:alpine
