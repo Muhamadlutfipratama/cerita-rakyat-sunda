@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -27,18 +25,26 @@ services:
     depends_on:
       - app
 
-
   mysql:
     image: mysql:8.0.44
     container_name: mysql-container
     restart: unless-stopped
+    # Bind MySQL to localhost on the host to avoid exposing 3306 publicly.
+    # For remote access use SSH tunnel or adjust firewall / allowed IPs.
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: susahbangetiniwoy
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: cerita_rakyat_sunda
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: susahbangetiniwoy
     volumes:
       - mysql-data:/var/lib/mysql
 
 volumes:
   mysql-data:
+
+# Notes:
+# - MySQL credentials above are used only during first initialization of the volume.
+# - We create a non-root user `laravel` and keep MySQL accessible only on localhost.
+# - To connect remotely with DBeaver, create an SSH tunnel to the VPS and connect to 127.0.0.1:3306.
