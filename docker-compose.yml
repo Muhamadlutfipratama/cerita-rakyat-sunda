@@ -34,8 +34,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: cerita_rakyat_sunda
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: susahbangetiniwoy
     volumes:
       - mysql-data:/var/lib/mysql
 
